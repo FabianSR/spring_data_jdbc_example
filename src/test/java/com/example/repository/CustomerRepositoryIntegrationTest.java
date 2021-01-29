@@ -40,7 +40,7 @@ public class CustomerRepositoryIntegrationTest {
         newCustomer.setIdentifier("0002");
         newCustomer.setName("juan");
         //when
-        Customer customerSaved = repository.save(newCustomer);
+        Customer customerSaved = repository.merge(newCustomer);
         //then
         then(customerSaved).isNotNull();
     }
@@ -51,7 +51,7 @@ public class CustomerRepositoryIntegrationTest {
         final Customer oldCustomer = repository.findById("0001").orElseThrow(AssertionError::new);
         oldCustomer.setName(oldCustomer.getName() + " hall");
         //when
-        repository.save(oldCustomer);
+        repository.merge(oldCustomer);
         //then
         then(repository.findById("0001").map(Customer::getName).map("kevin hall"::equals).orElse(false)).isTrue();
     }
